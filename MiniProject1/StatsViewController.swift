@@ -22,6 +22,7 @@ class StatsViewController: UIViewController {
     
     func setUpImages() {
         let defaults = UserDefaults.standard
+        
         if defaults.bool(forKey: ViewController.defaultsKeys.bool1) {
             boolImage1.image = UIImage(named: "thumbup")
         } else {
