@@ -14,6 +14,9 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
+        defaults.setValue(false, forKey: ViewController.defaultsKeys.keepScore)
         // Do any additional setup after loading the view.
     }
     

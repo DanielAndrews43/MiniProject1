@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         static let bool2 = "Bool2"
         static let bool3 = "Bool3"
         static let currentStreak = "CurrentStreak"
+        static let keepScore = "KeepScore"
     }
     
     @IBAction func option1Button(_ sender: Any) {
@@ -58,7 +59,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func statsButton(_ sender: Any) {
+        let defaults = UserDefaults.standard
         
+        timer.invalidate()
+        gameTimer.invalidate()
+        
+        defaults.setValue(true, forKey: defaultsKeys.keepScore)
     }
     
     @IBAction func stopButton(_ sender: Any) {
@@ -87,7 +93,7 @@ class ViewController: UIViewController {
         let bool2 = defaults.bool(forKey: defaultsKeys.bool2)
         
         defaults.setValue(streak, forKey: defaultsKeys.currentStreak)
-        if longest > streak {
+        if longest < streak {
             defaults.setValue(streak, forKey: defaultsKeys.longestStreak)
         }
         
@@ -124,6 +130,7 @@ class ViewController: UIViewController {
                 btn!.backgroundColor = UIColor.red
             }
         } else {
+            streak = 0
             callWaitASecond = false
         }
         
@@ -180,6 +187,12 @@ class ViewController: UIViewController {
     }
     
     func setupGame() {
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: defaultsKeys.keepScore) {
+            score = defaults.integer(forKey: defaultsKeys.points)
+            scoreLabel.text = "Score: \(score)"
+        }
+        
         timeLeft = 5
         timerLabel.text = "\(timeLeft)"
         
@@ -203,8 +216,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "Score: \(score)"
         stopButton.addTarget(self, action: #selector(getter: ViewController.stopButton), for: .touchUpInside)
+        statsPicture.addTarget(self, action: #selector(ViewController.statsButton), for: .touchUpInside)
         setupGame()
     }
 
