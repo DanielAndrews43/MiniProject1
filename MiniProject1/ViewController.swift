@@ -183,10 +183,10 @@ class ViewController: UIViewController {
         timeLeft = 5
         timerLabel.text = "\(timeLeft)"
         
-        option1Label.backgroundColor = UIColor.yellow
-        option2Label.backgroundColor = UIColor.yellow
-        option3Label.backgroundColor = UIColor.yellow
-        option4Label.backgroundColor = UIColor.yellow
+        option1Label.backgroundColor = UIColor(red: 0.67, green: 0, blue: 0.3, alpha: 1.0)
+        option2Label.backgroundColor = UIColor(red: 0.67, green: 0, blue: 0.3, alpha: 1.0)
+        option3Label.backgroundColor = UIColor(red: 0.67, green: 0, blue: 0.3, alpha: 1.0)
+        option4Label.backgroundColor = UIColor(red: 0.67, green: 0, blue: 0.3, alpha: 1.0)
         
         name = getName()
         
