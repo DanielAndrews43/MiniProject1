@@ -199,6 +199,7 @@
 				TargetAttributes = {
 					16BDED401E4D07B300D624C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = K5SQ49A4VN;
 						ProvisioningStyle = Automatic;
 					};
 					16BDED541E4D07B400D624C7 = {
@@ -420,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K5SQ49A4VN;
 				INFOPLIST_FILE = MiniProject1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shireen.daniel.MiniProject1;
@@ -432,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K5SQ49A4VN;
 				INFOPLIST_FILE = MiniProject1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shireen.daniel.MiniProject1;
