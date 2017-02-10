@@ -20,12 +20,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var option2Label: UIButton!
     @IBOutlet weak var option3Label: UIButton!
     @IBOutlet weak var option4Label: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
     
     var name: String = ""
     var streak: Int = 0
     var score: Int = 0
     var timeLeft: Int = 5
     var gameTimer: Timer = Timer()
+    var timer: Timer = Timer()
+    
+    struct defaultsKeys {
+        static let longestStreak = "LongestStreak"
+        static let points = "Points"
+        static let name1 = "Name1"
+        static let name2 = "Name2"
+        static let name3 = "Name3"
+        static let bool1 = "Bool1"
+        static let bool2 = "Bool2"
+        static let bool3 = "Bool3"
+        static let currentStreak = "CurrentStreak"
+    }
     
     @IBAction func option1Button(_ sender: Any) {
         submit(option1Label.currentTitle!, btnNumber: 1, btn: option1Label)
@@ -48,26 +62,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func stopButton(_ sender: Any) {
+        let defaults = UserDefaults.standard
         
+        timer.invalidate()
+        gameTimer.invalidate()
+        
+        defaults.setValue(0, forKey: defaultsKeys.points)
+        defaults.setValue(0, forKey: defaultsKeys.currentStreak)
     }
     
     func getName() -> String {
         let size = members.count;
         let randIndex = Int(arc4random_uniform(UInt32(size)))
         return members[randIndex]
-    }
-    
-    
-    struct defaultsKeys {
-        static let longestStreak = "LongestStreak"
-        static let points = "Points"
-        static let name1 = "Name1"
-        static let name2 = "Name2"
-        static let name3 = "Name3"
-        static let bool1 = "Bool1"
-        static let bool2 = "Bool2"
-        static let bool3 = "Bool3"
-        static let currentStreak = "CurrentStreak"
     }
     
     func storeValues(streak: Int, score: Int, correct: Bool, name: String) {
@@ -99,13 +106,14 @@ class ViewController: UIViewController {
     
     func submit(_ guessedName: String?, btnNumber: Int, btn: UIButton?) {
         gameTimer.invalidate()
+        var callWaitASecond = true
         
         if guessedName != nil {
             if guessedName == name {
                 //you got it right
                 streak += 1
                 score += 1
-                
+                scoreLabel.text = "Score: \(score)"
                 //change button to green
                 btn!.backgroundColor = UIColor.green
             } else {
@@ -115,17 +123,23 @@ class ViewController: UIViewController {
                 //change button to red
                 btn!.backgroundColor = UIColor.red
             }
+        } else {
+            callWaitASecond = false
         }
         
         //Store and replace values
         storeValues(streak: streak, score: score, correct: guessedName == name, name: name)
         
         //move on to next question
-        waitASecond();
+        if callWaitASecond {
+            waitASecond()
+        } else {
+            setupGame()
+        }
     }
     
     func waitASecond() {
-        var timer = Timer()
+        timer = Timer()
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval:1, target: self, selector: #selector(setupGame), userInfo: nil, repeats: false)
     }
@@ -189,7 +203,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scoreLabel.text = "Score: 0"
+        stopButton.addTarget(self, action: #selector(getter: ViewController.stopButton), for: .touchUpInside)
         setupGame()
     }
 
